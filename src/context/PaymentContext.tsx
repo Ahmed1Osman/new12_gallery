@@ -19,7 +19,7 @@ const PaymentContext = createContext<PaymentContextType>({} as PaymentContextTyp
 export const PaymentProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const applyDiscount = (price: number) => price * 0.95; // 5% discount
+  const applyDiscount = (price: number) => price * 0.90; // 5% discount
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
     setCart(prev => {

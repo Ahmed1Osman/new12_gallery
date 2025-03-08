@@ -1,11 +1,23 @@
 export interface Painting {
+
   id: string;
+
   title: string;
+
   price: number;
-  image: string;
+
   dimensions: string;
+
   type: string;
+
+  image: string;
+
+  date: string;
+
+  description?: string; // Add the description property
+
 }
+
 
 export interface ContactForm {
   name: string;
@@ -21,4 +33,10 @@ export interface PurchaseForm {
   country: string;
   postalCode: string;
   paintingId: string;
+}
+
+// Add auth-related types
+export interface LoginCredentials {
+  username: string;
+  password: string;
 }

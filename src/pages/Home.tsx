@@ -13,7 +13,7 @@ const Home = () => {
       <section className="relative h-[80vh] md:h-[90vh]">
         <div className="absolute inset-0">
           <img
-            src="/images/infogfdht.jpeg"
+            src="/images/homw photoooooo.jpeg"
             alt="Ghada El-Nagar Art Collection"
             className="h-full w-full object-cover object-center"
             loading="eager"

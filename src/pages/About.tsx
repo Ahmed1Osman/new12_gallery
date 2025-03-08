@@ -29,7 +29,7 @@ const About = () => {
       <section className="relative h-[50vh] md:h-[60vh]">
         <div className="absolute inset-0">
           <img
-            src="/images/infogfdht.jpeg"
+            src="/images/love_in_the_sea.jpeg"
             alt="Elnagar Art Studio"
             className="h-full w-full object-cover object-center"
             loading="eager"
