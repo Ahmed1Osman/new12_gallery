@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ghadagallery.vercel.app/sitemap.xml
