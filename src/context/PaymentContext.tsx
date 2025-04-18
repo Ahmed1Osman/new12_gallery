@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import React from 'react';
 
 // Define interfaces
@@ -32,8 +32,6 @@ const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
 
 // Constants
 const STORAGE_KEY = 'cart';
-const DEFAULT_DISCOUNT = 0.95; // 5% discount
-
 export const PaymentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -135,13 +133,13 @@ export const PaymentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Apply discount with optional discount code
 // Simplify to always apply 5% discount
-  const applyDiscount = useCallback((price: number, discountCode?: string): number => {
+  const applyDiscount = useCallback((price: number): number => {
     if (typeof price !== 'number' || price < 0) {
       setError('Invalid price');
       return price;
     }
     
-    // Always apply 5% discount regardless of code
+    // Always apply 5% discount
     const discountedPrice = price * 0.95;
     return Number(discountedPrice.toFixed(2));
   }, []);

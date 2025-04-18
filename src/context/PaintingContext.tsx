@@ -104,7 +104,6 @@ export const PaintingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const uploadBase64Image = async (base64Image: string, fileName: string) => {
     try {
       const mimeType = base64Image.split(';')[0].split(':')[1];
-      const fileExt = mimeType.split('/')[1];
       const base64Data = base64Image.split(',')[1];
       const byteCharacters = atob(base64Data);
       const byteArrays: number[] = [];
@@ -115,7 +114,7 @@ export const PaintingProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       
       const blob = new Blob([new Uint8Array(byteArrays)], { type: mimeType });
       
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('paintings')
         .upload(fileName, blob, {
           contentType: mimeType,

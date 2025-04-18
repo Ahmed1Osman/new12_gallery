@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Filter, ChevronDown, Heart, Search, XCircle, Phone } from 'lucide-react';
-import { usePayment } from '../context/PaymentContext';
+import { Filter, ChevronDown, Heart, Search, XCircle, Phone } from 'lucide-react';
 import { usePaintings } from '../context/PaintingContext';
 import ImageHandler from '../components/ImageHandler';
 import DeleteButton from '../components/DeleteButton'; // Import the DeleteButton component
@@ -9,7 +8,7 @@ import { useAuth } from '../context/AuthContext'; // Import for checking authent
 
 const Gallery = () => {
   const { paintings, refreshPaintings } = usePaintings();
-  const { addToCart } = usePayment();
+  // Removed unused addToCart to avoid compile error
   const { isAuthenticated } = useAuth(); // Get authentication status
   const [filteredPaintings, setFilteredPaintings] = useState(paintings);
   const [showFilters, setShowFilters] = useState(false);
@@ -326,7 +325,9 @@ const Gallery = () => {
                             <ImageHandler
                               imageSource={painting.image}
                               alt={painting.title}
-                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              className="h-full w-full"
+                              objectFit="cover"
+                              preserveAspectRatio={false}
                             />
                           ) : (
                             <span className="text-gray-500 text-sm">Image not available</span>
@@ -388,4 +389,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery; 
+export default Gallery;

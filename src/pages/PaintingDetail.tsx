@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Phone, Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -58,11 +58,14 @@ const PaintingDetail = () => {
         </button>
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 xl:gap-16">
-          <div className="overflow-hidden rounded-xl shadow-xl">
+          {/* Modified this div to better handle various image dimensions */}
+          <div className="overflow-hidden rounded-xl shadow-xl bg-white p-4 flex items-center justify-center min-h-[400px]">
             <ImageHandler
               imageSource={painting.image}
               alt={painting.title}
-              className="h-full w-full object-cover aspect-square"
+              className="max-w-full max-h-full"
+              preserveAspectRatio={true}
+              objectFit="contain"
             />
           </div>
 

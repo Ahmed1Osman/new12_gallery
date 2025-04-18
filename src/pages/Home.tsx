@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Heart, Palette, Brush, Award } from 'lucide-react';
 import { paintings } from '../data/paintings';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const featuredPaintings = [...paintings].sort(() => 0.5 - Math.random()).slice(0, 4);

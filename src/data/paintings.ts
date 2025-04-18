@@ -24,7 +24,7 @@ export const paintings: Painting[] = [
   {
     id: 'abstract-40x40-2',
     title: 'Acrylic paint',
-    price: 20000,
+    price: 27000,
     image: 'Acrylic paint - 40×40  cm - 20000.jpeg',
     dimensions: '40×40 cm',
     type: 'Acrylic Paint',
@@ -34,7 +34,7 @@ export const paintings: Painting[] = [
   {
     id: 'urban-50x70',
     title: 'paint',
-    price: 30000,
+    price: 35000,
     image: 'Acrylic paint -50×70  cm - 30000.jpeg',
     dimensions: '50×70 cm',
     type: 'Acrylic Paint',
@@ -54,10 +54,10 @@ export const paintings: Painting[] = [
   {
     id: 'nautical-boat',
     title: 'Nautical Boat',
-    price: 30000,
-    image: 'Boat - wood & acrylic - 30000.jpeg',
+    price: 35000,
+    image: 'boooat.jpeg',
     dimensions: '50×70 cm',
-    type: 'Mixed Media',
+    type: 'Mixed Media',  
     createdAt: new Date('2023-01-06').toISOString(),
     date: '2023-01-06',
   },
@@ -75,7 +75,7 @@ export const paintings: Painting[] = [
     id: 'fishes-girls',
     title: 'Fishes & Girls',
     price: 60000,
-    image: 'Fishes &girls - 120×120 cm acrylic paint -  60000.jpeg',
+    image: 'fffffff.jpeg',
     dimensions: '120×120 cm',
     type: 'Acrylic Paint',
     createdAt: new Date('2023-01-08').toISOString(),
@@ -92,9 +92,9 @@ export const paintings: Painting[] = [
     date: '2023-01-09',
   },
   {
-    id: 'Girls',
+    id: 'girls-50x70',
     title: 'Girls',
-    price: 25000,
+    price: 30000,
     image: 'Girls - 50 ×70  acrylic paint - 25000.jpeg',
     dimensions: '50×70 cm',
     type: 'Acrylic Paint',
@@ -102,7 +102,7 @@ export const paintings: Painting[] = [
     date: '2023-01-10',
   },
   {
-    id: 'Horses',
+    id: 'horses-100x70',
     title: 'Horses',
     price: 35000,
     image: 'Horses-  acrylic paint 100×70 cm - 35000.jpeg',
@@ -112,19 +112,19 @@ export const paintings: Painting[] = [
     date: '2023-01-11',
   },
   {
-    id: 'Izees-Ozoris',
+    id: 'izees-ozoris',
     title: 'Izees & Ozoris',
     price: 150000,
-    image: 'Izees &ozoris  3 pieces - 60 ×160  cm  acrylic paint - 150 000.jpeg',
+    image: 'iiiiiiiii.jpeg',
     dimensions: '60 ×160  cm',
     type: 'Acrylic Paint',
     createdAt: new Date('2023-01-12').toISOString(),
     date: '2023-01-12',
   },
   {
-    id: 'Love-stories',
+    id: 'love-stories',
     title: 'Love stories',
-    price: 25000,
+    price: 30000,
     image: 'Love stories - 50 ×70  cm - acrylic paint -  25000.jpeg',
     dimensions: '50 ×70  cm',
     type: 'Acrylic Paint',
@@ -132,9 +132,9 @@ export const paintings: Painting[] = [
     date: '2023-01-13',
   },
   {
-    id: 'Nubian-girl',
+    id: 'nubian-girl',
     title: 'Nubian girl',
-    price: 30000,
+    price: 35000,
     image: 'Nubian girl acrylic paint  -50×60 cm -  30000.jpeg',
     dimensions: '50×60 cm',
     type: 'acrylic paint',
@@ -142,7 +142,7 @@ export const paintings: Painting[] = [
     date: '2023-01-14',
   },
   {
-    id: 'Sketch-for-a-girl',
+    id: 'sketch-for-a-girl',
     title: 'Sketch for a girl',
     price: 15000,
     image: 'Sketch  for a girl -  inks -  35 ×50  cm  - 15000.jpeg',
@@ -152,9 +152,9 @@ export const paintings: Painting[] = [
     date: '2023-01-15',
   },
   {
-    id: 'Ugly-man',
+    id: 'ugly-man',
     title: 'Ugly man',
-    price: 40000,
+    price: 50000,
     image: 'Ugly man - 60 ×80  cm - acrylic paint -  40000.jpeg',
     dimensions: '60 ×80  cm',
     type: 'Acrylic Paint',
@@ -162,7 +162,7 @@ export const paintings: Painting[] = [
     date: '2023-01-16',
   },
   {
-    id: 'El-Set',
+    id: 'el-set',
     title: 'El Set',
     price: 55000,
     image: '100 ×70  cm  oil  on canvas 55000.jpeg',
@@ -172,7 +172,7 @@ export const paintings: Painting[] = [
     date: '2023-01-17',
   },
   {
-    id: 'HOME',
+    id: 'home',
     title: 'HOME',
     price: 55000,
     image: 'HOME 100 ×70  cm  acrylic on canvas  55000.jpeg',
@@ -182,9 +182,9 @@ export const paintings: Painting[] = [
     date: '2023-01-18',
   },
   {
-    id: 'Paint-ink-unipen',
+    id: 'ink-unipen-1',
     title: 'Paint',
-    price: 15000,
+    price: 27000,
     image: 'WhatsApp Image 2025-02-12 at 20.53.09.jpeg',
     dimensions: '40 ×40 cm',
     type: 'ink & unipen',
@@ -192,7 +192,7 @@ export const paintings: Painting[] = [
     date: '2023-01-19',
   },
   {
-    id: 'Paint-acrylic-paper',
+    id: 'acrylic-paper-35x50',
     title: 'Paint',
     price: 20000,
     image: '35×50  cm - acrylic on paper20000le.jpeg',
@@ -202,16 +202,17 @@ export const paintings: Painting[] = [
     date: '2023-01-20',
   },
   {
-    id: 'Acrylic paint',
-    title: 'Love  in loss',
+    id: 'love-in-loss',
+    title: 'Love in loss',
     price: 40000,
     image: 'new22 Love  in lossAcrylic paint60×80  cm 40000.jpeg',
     dimensions: '60×80  cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'abd-al-aal',
     title: 'عبد العال',
     price: 35000,
     image: 'new21 عبد العال  45×90  acrylic 35000.jpeg',
@@ -219,8 +220,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Acrylic paint',
+  },  
+  {
+    id: 'banat-alex',
     title: 'Banat alex',
     price: 35000,
     image: 'new20 Banat alex 45×90  cm Acrylic paint35000.jpeg',
@@ -228,8 +230,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic',
+  },  
+  {
+    id: 'bahary',
     title: 'Bahary',
     price: 45000,
     image: 'new19 Bahary 100 ×70  cmAcrylic paint45000.jpeg',
@@ -237,8 +240,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Acrylic paint',
+  },  
+  {
+    id: 'qaryetna',
     title: 'قريتنا',
     price: 40000,
     image: 'new18 قريتنا Acrylic paint120 ×90 cm 40000.jpeg',
@@ -246,8 +250,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Acrylic paint',
+  },  
+  {
+    id: 'nakheel',
     title: 'Nakheel',
     price: 50000,
     image: 'new17 Nakheel  Acrylic paint100×70   cm 50000.jpeg',
@@ -255,8 +260,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Oil paint',
+  },  
+  {
+    id: 'hennah-oil',
     title: 'Hennah',
     price: 100000,
     image: 'new16 HennahOil paint 150 ×140 cm 100000.jpeg',
@@ -264,8 +270,9 @@ export const paintings: Painting[] = [
     type: 'Oil paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'qadet-setat',
     title: 'قعدة ستات',
     price: 35000,
     image: 'new15 قعدة ستات Acrylic paint 50 ×70  cm 35000.jpeg',
@@ -273,8 +280,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'love-story',
     title: 'Love story',
     price: 40000,
     image: 'new14 Love storyAcrylic paint60 ×80  cm 40000le.jpeg',
@@ -282,17 +290,19 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'dream',
     title: 'DREAM',
-    price: 25000,
+    price: 35000,
     image: 'new13_DREAM-ACRYLIC-PAINT-50×70-CM-25000LE.jpeg',
     dimensions: '50×70 CM',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'biano',
     title: 'Biano',
     price: 40000,
     image: 'new12_Biano-Acrylic-paint-50×70-cm-40000.jpeg',
@@ -300,35 +310,39 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
-    title: 'Syad?',
-    price: 20000,
+  },  
+  {
+    id: 'syad',
+    title: 'Syad',
+    price: 35000,
     image: 'NEW11_Syad-Acrylic-paint-80×80-cm.jpeg',
     dimensions: '80×80-cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'alex-cafe',
     title: 'Alex Cafe?',
-    price: 20000,
+    price: 120000,
     image: 'new10_Alex_Cafe_Acrylic_Paint_240x120.jpeg',
     dimensions: '240x120 cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'cafe-time',
     title: 'Cafe Time?',
-    price: 20000,
+    price: 35000,
     image: 'new9_Cafe_Time_Acrylic_Paint_100x70cm.jpeg',
     dimensions: '100x70cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'over-the-nile',
     title: 'Over the nile',
     price: 35000,
     image: 'new8_Overthenile_Acrylic_paint_80x80cm_35000le.jpeg',
@@ -336,26 +350,29 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'acrylic-40x40',
     title: 'Paint',
-    price: 20000,
+    price: 27000,
     image: 'new7_Acrylic-paint-40×40-cm-20000.jpeg',
     dimensions: '40×40-cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'acrylic-35x50',
     title: 'Paint',
-    price: 20000,
+    price: 27000,
     image: 'new6_35x50-cm-acrylic-paint-20000.jpeg',
     dimensions: '35×50 cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'acrylic-60x80',
     title: 'Paint',
     price: 45000,
     image: 'new5_acrylic-paint-60×80cm-45000.jpeg',
@@ -363,8 +380,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'zanqat-al-setat',
     title: 'زنقةالستات',
     price: 45000,
     image: 'new4_زنقة_الستات_Acrylic-paint_60x80cm_45000.jpeg',
@@ -372,8 +390,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  { 
-    id: 'Paint-acrylic-paper',
+  },  
+  { 
+    id: 'horses-dance',
     title: 'Horses_Dance',
     price: 30000,
     image: 'new3_Horses_Dance_50x70cm_Acrylic_30000.jpeg',
@@ -381,8 +400,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'acrylic-35x50-2',
     title: 'Paint',
     price: 20000,
     image: 'new2_35×50  cm - acrylic on paper _20000.jpeg',
@@ -390,8 +410,9 @@ export const paintings: Painting[] = [
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Oil paint',
+  },  
+  {
+    id: 'farah',
     title: 'Farah',
     price: 100000,
     image: 'new23 Farah 150 ×140  cmOil paint100000.jpeg',
@@ -399,8 +420,9 @@ export const paintings: Painting[] = [
     type: 'Oil paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Acrylic paint',
+  },  
+  {
+    id: 'yoga',
     title: 'Yoga',
     price: 45000,
     image: 'new24 Yoga Acrylic paint 120 ×10045000.jpeg',
@@ -408,8 +430,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'love-in-the-sea',
     title: 'Love in the see',
     price: 50000,
     image: 'new25 Love in the seeAcrylic paint100×100  cm50000.jpeg',
@@ -417,17 +440,19 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'fishes-40x40',
     title: 'Fishes',
-    price: 10000,
+    price: 25000,
     image: 'new26 Fishes 40 ×40  cm 10000.jpeg',
     dimensions: '40 ×40  cm',
     type: 'acrylic on paper',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'zainab',
     title: 'Zainab زينب',
     price: 40000,
     image: 'new27 Zainab زينب Acrylic paint60 ×80  cm40000.jpeg',
@@ -435,8 +460,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'acrylic-50cm',
     title: 'Paint',
     price: 20000,
     image: 'new35 50cm acrylic on paper _20000.jpeg',
@@ -444,8 +470,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'balerena',
     title: 'Balerena',
     price: 35000,
     image: 'neww_Balerena 50 ×70  cm Acrylic paint35000.jpeg',
@@ -453,8 +480,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'aziza',
     title: 'Aziza عزيزة',
     price: 35000,
     image: 'ne1 Aziza عزيزة Acrylic paint60×80  cm 35000.jpeg',
@@ -462,8 +490,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'asmahan',
     title: 'Asmahan',
     price: 40000,
     image: 'ne2 Asmahan Acrylic paint45×90 cm 40000.jpeg',
@@ -471,8 +500,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'bnt-elsamak',
     title: 'Bnt Elsamak',
     price: 50000,
     image: 'ne3 Bnt Elsamak Acrylic paint60×90 cm 50000 le..jpeg',
@@ -480,8 +510,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'three-girls',
     title: '3 girls',
     price: 35000,
     image: 'ne4 3 girls Acrylic  paint 100×100 cm 35000.jpeg',
@@ -489,8 +520,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'awad',
     title: 'عواد Awad',
     price: 35000,
     image: 'ne5 50 ×70  cm Acrylic paint عواد Awad 35000.jpeg',
@@ -498,8 +530,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'dance-1',
     title: 'DANCE',
     price: 35000,
     image: 'ne6 DANCE 50 ×70  CMACRYLIC35000 LE.jpeg',
@@ -507,8 +540,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'dance-2',
     title: 'Dance',
     price: 35000,
     image: 'ne7 Dance 60 ×80  cmAcrylic paint 35000.jpeg',
@@ -516,8 +550,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'nubian-bride',
     title: 'عروس النوبة',
     price: 70000,
     image: 'ne8 عروس النوبة 150 ×140  cm Acrylic paint70000.jpeg',
@@ -525,8 +560,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'tahtib',
     title: 'تحطيب',
     price: 40000,
     image: 'ne9 تحطيب 80 ×80  cm Acryic paint 40000.jpeg',
@@ -534,8 +570,9 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {                
-    id: 'Paint-acrylic-paper',
+  },  
+  {                
+    id: 'qadat-regala',
     title: ' قعدة رجالة',
     price: 40000,
     image: 'ne10 قعدة رجالةAcrylic paint 60 ×80  cm 40000.jpeg',
@@ -543,14 +580,115 @@ export const paintings: Painting[] = [
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
-  },  {
-    id: 'Paint-acrylic-paper',
+  },  
+  {
+    id: 'henna-large',
     title: 'Henna',
-    price: 20000,
+    price: 120000,
     image: 'ne11 Henna Acrylic paint 240 ×150  cm.jpeg',
     dimensions: '240 ×150  cm',
     type: 'Acrylic paint',
     createdAt: new Date('2023-01-20').toISOString(),
     date: '2023-01-20',
   }, 
+  {
+    id: 'new-1',
+    title: 'paint',
+    price: 37000  ,
+    image: 'x1 60 ×60  37000.jpeg',
+    dimensions: '60 ×60  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  }, 
+  {
+    id: 'new-2',
+    title: 'Paint',
+    price: 27000 ,
+    image: 'x2 40 ×40  cm  27000.jpeg',
+    dimensions: '40 ×40  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  }, 
+  {
+    id: 'new-3',
+    title: 'paint',
+    price: 40000,
+    image: 'x3 100 ×70  40000.jpeg',
+    dimensions: '100 ×70  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  }, 
+  {
+    id: 'new-4',
+    title: 'paint',
+    price: 42000,
+    image: 'x4 100 ×70  40000.jpeg',
+    dimensions: '50 x 70  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  }, 
+  {
+    id: 'new-5',
+    title: 'paint',
+    price: 52000,
+    image: 'x5 100 ×70  40000.jpeg',
+    dimensions: '100 x 70  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  }, 
+  {
+    id: 'new-6',
+    title: 'paint',
+    price: 55000,
+    image: 'x6 100 ×70  40000.jpeg',
+    dimensions: '150 x 120  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  },
+  {
+    id: 'new-7',
+    title: 'paint',
+    price: 30000,
+    image: 'x7 100 ×70  40000.jpeg',
+    dimensions: '50 x 60  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  },
+  {
+    id: 'new-8',
+    title: 'paint',
+    price: 35000,
+    image: 'x9 100 ×70  40000.jpeg',
+    dimensions: '50 x 70  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  },
+  {
+    id: 'new-9',
+    title: 'paint',
+    price: 40000,
+    image: 'nn 60 ×80  cm  40000.jpeg',
+    dimensions: ' 60 ×80  cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  },
+  {
+    id: 'new-10',
+    title: 'paint',
+    price: 52000,
+    image: 'nn2 100 ×70 cm - 52000.jpeg',
+    dimensions: ' 100 ×70 cm',
+    type: 'Acrylic paint',
+    createdAt: new Date('2023-01-20').toISOString(),
+    date: '2023-01-20',
+  },
 ];

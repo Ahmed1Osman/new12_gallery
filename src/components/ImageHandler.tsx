@@ -7,6 +7,8 @@ interface ImageHandlerProps {
   alt: string;
   className?: string;
   fallbackSrc?: string;
+  preserveAspectRatio?: boolean; // New prop to control aspect ratio preservation
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'; // New prop for object-fit
 }
 
 /**
@@ -15,20 +17,29 @@ interface ImageHandlerProps {
  * 1. Base64 strings
  * 2. URLs from Supabase storage
  * 3. Local image paths
+ * 
+ * It also provides better control over how images are displayed:
+ * - preserveAspectRatio: When true, ensures the image's natural aspect ratio is maintained
+ * - objectFit: Controls how the image fits within its container
  */
 const ImageHandler: React.FC<ImageHandlerProps> = ({
   imageSource,
   alt,
   className = '',
-  fallbackSrc = '/placeholder-image.jpg'
+  fallbackSrc = '/placeholder-image.jpg',
+  preserveAspectRatio = true,
+  objectFit = 'contain'
 }) => {
   const [src, setSrc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [retryCount, setRetryCount] = useState<number>(0);
+  const maxRetries = 2;
 
   useEffect(() => {
     setLoading(true);
     setError(false);
+    setRetryCount(0);
 
     if (!imageSource) {
       setSrc(fallbackSrc);
@@ -54,7 +65,9 @@ const ImageHandler: React.FC<ImageHandlerProps> = ({
 
     // Handle relative paths for local images
     if (!imageSource.startsWith('http')) {
-      setSrc(`/images/${imageSource}`);
+      // Check for spaces and special characters in the filename and encode if needed
+      const encodedFileName = encodeURIComponent(imageSource);
+      setSrc(`/images/${encodedFileName}`);
       setLoading(false);
       return;
     }
@@ -66,8 +79,30 @@ const ImageHandler: React.FC<ImageHandlerProps> = ({
 
   const handleError = () => {
     console.error(`Error loading image: ${src}`);
-    setError(true);
-    setSrc(fallbackSrc);
+    
+    if (retryCount < maxRetries) {
+      // Try one more time with a slight delay
+      setTimeout(() => {
+        setRetryCount(prev => prev + 1);
+        // Force re-render with the same source to retry loading
+        const currentSrc = src;
+        setSrc('');
+        setTimeout(() => setSrc(currentSrc), 10);
+      }, 500);
+    } else {
+      setError(true);
+      setSrc(fallbackSrc);
+    }
+  };
+
+  // Compute final className
+  const computedClassName = `${className} ${
+    preserveAspectRatio ? 'w-auto h-auto' : ''
+  }`.trim();
+  
+  // Compute style with objectFit
+  const imageStyle = {
+    objectFit,
   };
 
   return (
@@ -80,8 +115,11 @@ const ImageHandler: React.FC<ImageHandlerProps> = ({
         <img
           src={error ? fallbackSrc : src}
           alt={alt}
-          className={className}
+          className={computedClassName}
+          style={imageStyle}
           onError={handleError}
+          onLoad={() => setLoading(false)}
+          loading="lazy" // Add lazy loading for performance
         />
       )}
     </>
