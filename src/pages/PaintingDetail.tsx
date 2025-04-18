@@ -1,46 +1,46 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ShoppingCart, Loader2 } from 'lucide-react';
-import { paintings } from '../data/paintings';
-import Modal from '../components/Modal';
-import { PurchaseForm } from '../types';
+import { ArrowLeft, Phone, Copy, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { usePaintings } from '../context/PaintingContext';
+import ImageHandler from '../components/ImageHandler'; // Import the ImageHandler component
 
 const PaintingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState<PurchaseForm>({
-    name: '',
-    email: '',
-    address: '',
-    city: '',
-    country: '',
-    postalCode: '',
-    paintingId: id || '',
-  });
+  const [copied, setCopied] = useState(false);
+  const phoneNumber = "+20 100 273 8764";
+  
+  // Get paintings from context
+  const { paintings } = usePaintings();
 
+  // Find the painting using the id parameter
   const painting = paintings.find((p) => p.id === id);
+  
+  console.log("PaintingDetail - paintings:", paintings);
+  console.log("PaintingDetail - looking for id:", id);
+  console.log("PaintingDetail - found painting:", painting);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    alert('Thank you for your purchase! We will contact you soon.');
-    setShowPurchaseModal(false);
-    setIsSubmitting(false);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleCopyNumber = () => {
+    navigator.clipboard.writeText(phoneNumber);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   if (!painting) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="text-xl">Painting not found</p>
+        <div className="text-center p-8 rounded-xl bg-white shadow-lg">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Painting Not Found</h2>
+          <p className="text-gray-600 mb-6">Sorry, we couldn't find the painting you're looking for.</p>
+          <button
+            onClick={() => navigate('/gallery')}
+            className="inline-flex items-center rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
+          >
+            <ArrowLeft className="mr-2 h-5 w-5" />
+            Back to Gallery
+          </button>
+        </div>
       </div>
     );
   }
@@ -59,11 +59,10 @@ const PaintingDetail = () => {
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 xl:gap-16">
           <div className="overflow-hidden rounded-xl shadow-xl">
-            <img
-              src={`/images/${painting.image}`}
+            <ImageHandler
+              imageSource={painting.image}
               alt={painting.title}
               className="h-full w-full object-cover aspect-square"
-              loading="eager"
             />
           </div>
 
@@ -71,7 +70,10 @@ const PaintingDetail = () => {
             <div className="border-b border-gray-200 pb-6">
               <h1 className="text-4xl font-bold text-gray-900">{painting.title}</h1>
               <p className="mt-4 text-3xl font-semibold text-indigo-600">
-                {painting.price.toLocaleString()} EGP
+                {(painting.price * 0.95).toLocaleString()} EGP
+                <span className="ml-2 text-base text-gray-500 line-through">
+                  {painting.price.toLocaleString()} EGP
+                </span>
               </p>
             </div>
 
@@ -87,135 +89,52 @@ const PaintingDetail = () => {
                 </div>
               </div>
 
-              <div className="mt-8">
-                <button
-                  onClick={() => setShowPurchaseModal(true)}
-                  className="w-full inline-flex items-center justify-center rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  aria-label="Purchase this artwork"
-                >
-                  <ShoppingCart className="mr-3 h-6 w-6" />
-                  Purchase Now
-                </button>
-              </div>
+              {painting.description && (
+                <div className="mt-4">
+                  <dt className="text-lg font-medium text-gray-900">Description</dt>
+                  <dd className="mt-1 text-gray-600">{painting.description}</dd>
+                </div>
+              )}
+
+              <motion.div 
+                className="mt-8 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-lg"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h2 className="text-xl font-bold mb-4">Interested in this artwork?</h2>
+                <p className="mb-4">Contact the artist directly to purchase:</p>
+                
+                <div className="flex items-center justify-between bg-white/20 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <Phone className="h-6 w-6 mr-3" />
+                    <span className="text-xl font-semibold">{phoneNumber}</span>
+                  </div>
+                  <button 
+                    onClick={handleCopyNumber}
+                    className="bg-white text-indigo-600 rounded-lg px-4 py-2 flex items-center hover:bg-indigo-50 transition-colors"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-5 w-5 mr-2" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-5 w-5 mr-2" />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+                
+                <p className="mt-4 text-sm text-white/80">
+                  Mention code <span className="font-bold">WEBSITE5</span> for 5% discount
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
-
-      <Modal
-        isOpen={showPurchaseModal}
-        onClose={() => setShowPurchaseModal(false)}
-        title="Purchase Artwork"
-      >
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Shipping Address <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="address"
-                required
-                value={formData.address}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                City <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="city"
-                required
-                value={formData.city}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Postal Code <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="postalCode"
-                required
-                value={formData.postalCode}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="country"
-                required
-                value={formData.country}
-                onChange={handleInputChange}
-                className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8 flex justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => setShowPurchaseModal(false)}
-              className="rounded-lg border border-gray-300 bg-white px-6 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : (
-                'Complete Purchase'
-              )}
-            </button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 };

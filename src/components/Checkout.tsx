@@ -1,3 +1,4 @@
+import React from 'react';
 import { usePayment } from '../context/PaymentContext';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -61,8 +62,8 @@ const Checkout: React.FC = () => {
           <span>${subtotal.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-green-600">
-          <span>Website Discount (10%):</span>
-          <span>-${(subtotal * 0.1).toFixed(2)}</span>
+          <span>Website Discount (5%):</span>
+          <span>-${(subtotal * 0.05).toFixed(2)}</span>
         </div>
         <div className="flex justify-between font-bold mt-2">
           <span>Total:</span>

@@ -1,41 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Filter, ChevronDown } from 'lucide-react';
+import { ShoppingCart, Filter, ChevronDown, Heart, Search, XCircle, Phone } from 'lucide-react';
 import { usePayment } from '../context/PaymentContext';
-import { usePaintings } from '../context/PaintingContext'; // Import the paintings context instead
+import { usePaintings } from '../context/PaintingContext';
+import ImageHandler from '../components/ImageHandler';
+import DeleteButton from '../components/DeleteButton'; // Import the DeleteButton component
+import { useAuth } from '../context/AuthContext'; // Import for checking authentication
 
 const Gallery = () => {
-  const { paintings } = usePaintings(); // Get paintings from context instead of data file
-  const { addToCart, applyDiscount } = usePayment();
+  const { paintings, refreshPaintings } = usePaintings();
+  const { addToCart } = usePayment();
+  const { isAuthenticated } = useAuth(); // Get authentication status
   const [filteredPaintings, setFilteredPaintings] = useState(paintings);
   const [showFilters, setShowFilters] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const saved = localStorage.getItem('favoritePaintings');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [filters, setFilters] = useState({
     type: '',
     priceRange: '',
-    sortBy: 'featured'
+    sortBy: 'featured',
+    onlyFavorites: false
   });
   
-  // Get unique painting types for filter
+  // Debug: Log paintings when they change
+  useEffect(() => {
+    console.log("Gallery component received paintings:", paintings);
+    if (paintings.length > 0) {
+      console.log("Sample painting:", paintings[0]);
+    }
+  }, [paintings]);
+  
   const paintingTypes = Array.from(new Set(paintings.map(p => p.type)));
   
-  // Price ranges for filtering
   const priceRanges = [
     { label: 'Under 20,000 EGP', min: 0, max: 20000 },
     { label: '20,000 - 40,000 EGP', min: 20000, max: 40000 },
     { label: '40,000 - 60,000 EGP', min: 40000, max: 60000 },
     { label: 'Over 60,000 EGP', min: 60000, max: Infinity }
   ];
+
+  // Save favorites to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('favoritePaintings', JSON.stringify(favorites));
+  }, [favorites]);
   
-  // Apply filters when they change or when paintings change
   useEffect(() => {
     let result = [...paintings];
     
-    // Filter by type
+    // Apply search filter
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase().trim();
+      result = result.filter(p => 
+        p.title.toLowerCase().includes(term) || 
+        p.description?.toLowerCase().includes(term) ||
+        p.type.toLowerCase().includes(term)
+      );
+    }
+    
+    // Apply type filter
     if (filters.type) {
       result = result.filter(p => p.type.toLowerCase() === filters.type.toLowerCase());
     }
     
-    // Filter by price range
+    // Apply price range filter
     if (filters.priceRange) {
       const range = priceRanges.find(r => r.label === filters.priceRange);
       if (range) {
@@ -43,18 +73,24 @@ const Gallery = () => {
       }
     }
     
-    // Sort results
+    // Apply favorites filter
+    if (filters.onlyFavorites) {
+      result = result.filter(p => favorites.includes(p.id));
+    }
+    
+    // Apply sorting
     if (filters.sortBy === 'priceLow') {
       result.sort((a, b) => a.price - b.price);
     } else if (filters.sortBy === 'priceHigh') {
       result.sort((a, b) => b.price - a.price);
+    } else if (filters.sortBy === 'newest') {
+      result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
-    // 'featured' sorting uses default order
     
     setFilteredPaintings(result);
-  }, [filters, paintings]); // Add paintings as a dependency so filters update when paintings change
+  }, [filters, paintings, searchTerm, favorites]);
   
-  const handleFilterChange = (filterType: string, value: string) => {
+  const handleFilterChange = (filterType: string, value: string | boolean) => {
     setFilters(prev => ({
       ...prev,
       [filterType]: value
@@ -65,8 +101,23 @@ const Gallery = () => {
     setFilters({
       type: '',
       priceRange: '',
-      sortBy: 'featured'
+      sortBy: 'featured',
+      onlyFavorites: false
     });
+    setSearchTerm('');
+  };
+
+  const toggleFavorite = (id: string) => {
+    if (favorites.includes(id)) {
+      setFavorites(favorites.filter(favId => favId !== id));
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  };
+
+  // Calculate discounted price (5% discount)
+  const calculateDiscountedPrice = (price: number) => {
+    return price * 0.95;
   };
 
   return (
@@ -79,23 +130,61 @@ const Gallery = () => {
           <p className="mt-4 text-center text-lg text-gray-600">
             Discover unique pieces from the Elnagar Art Studio Collection
           </p>
+          
+          {/* Search bar */}
+          <div className="mx-auto mt-8 max-w-md">
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full rounded-full border-gray-300 pl-10 pr-4 py-2 focus:border-indigo-500 focus:ring-indigo-500"
+                placeholder="Search paintings..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <Search className="h-5 w-5 text-gray-400" />
+              </div>
+              {searchTerm && (
+                <button 
+                  className="absolute inset-y-0 right-0 flex items-center pr-3"
+                  onClick={() => setSearchTerm('')}
+                >
+                  <XCircle className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         
         {/* Filters */}
         <div className="mb-8">
-          <button 
-            onClick={() => setShowFilters(!showFilters)}
-            className="mb-4 flex items-center rounded-lg bg-white px-4 py-2 shadow-sm hover:shadow-md"
-          >
-            <Filter className="mr-2 h-5 w-5" />
-            Filter & Sort
-            <ChevronDown className={`ml-2 h-4 w-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-          </button>
+          <div className="flex items-center justify-between">
+            <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="mb-4 flex items-center rounded-lg bg-white px-4 py-2 shadow-sm hover:shadow-md"
+            >
+              <Filter className="mr-2 h-5 w-5" />
+              Filter & Sort
+              <ChevronDown className={`ml-2 h-4 w-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+            </button>
+            
+            <div className="mb-4 flex items-center">
+              <input
+                type="checkbox"
+                id="favorites-filter"
+                checked={filters.onlyFavorites}
+                onChange={(e) => handleFilterChange('onlyFavorites', e.target.checked)}
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="favorites-filter" className="ml-2 text-sm text-gray-700">
+                Show favorites only
+              </label>
+            </div>
+          </div>
           
           {showFilters && (
             <div className="rounded-xl bg-white p-6 shadow-md">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                {/* Artwork Type Filter */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Artwork Type</label>
                   <select
@@ -110,7 +199,6 @@ const Gallery = () => {
                   </select>
                 </div>
                 
-                {/* Price Range Filter */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Price Range</label>
                   <select
@@ -125,7 +213,6 @@ const Gallery = () => {
                   </select>
                 </div>
                 
-                {/* Sort Options */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Sort By</label>
                   <select
@@ -134,6 +221,7 @@ const Gallery = () => {
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   >
                     <option value="featured">Featured</option>
+                    <option value="newest">Newest First</option>
                     <option value="priceLow">Price: Low to High</option>
                     <option value="priceHigh">Price: High to Low</option>
                   </select>
@@ -145,10 +233,25 @@ const Gallery = () => {
                   onClick={clearFilters}
                   className="text-sm text-indigo-600 hover:text-indigo-800"
                 >
-                  Clear Filters
+                  Clear All Filters
                 </button>
               </div>
             </div>
+          )}
+        </div>
+        
+        {/* Stats bar */}
+        <div className="mb-6 flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
+          <div className="text-sm text-gray-500">
+            Showing <span className="font-medium text-gray-900">{filteredPaintings.length}</span> out of <span className="font-medium text-gray-900">{paintings.length}</span> paintings
+          </div>
+          {(searchTerm || filters.type || filters.priceRange || filters.onlyFavorites) && (
+            <button 
+              onClick={clearFilters}
+              className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline"
+            >
+              Clear filters
+            </button>
           )}
         </div>
         
@@ -167,27 +270,48 @@ const Gallery = () => {
           ) : (
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredPaintings.map((painting) => {
-                // Calculate discounted price safely
-                const discountedPrice = typeof applyDiscount === 'function' 
-                  ? applyDiscount(painting.price) 
-                  : painting.price;
-                
-                // Check if there's actually a discount
+                console.log(`Rendering painting ${painting.id}:`, painting);
+                const discountedPrice = calculateDiscountedPrice(painting.price);
                 const hasDiscount = discountedPrice < painting.price;
-                const discount = painting.price - discountedPrice;
-                const discountPercentage = hasDiscount 
-                  ? Math.round((discount / painting.price) * 100) 
-                  : 0;
+                const discountPercentage = 5; // Fixed at 5%
+                const isFavorite = favorites.includes(painting.id);
                 
                 return (
                   <div
                     key={painting.id}
                     className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
                   >
-                    {/* Discount Badge - only show if there's a discount */}
                     {hasDiscount && (
                       <div className="absolute left-4 top-4 z-10 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white">
                         {discountPercentage}% OFF
+                      </div>
+                    )}
+                    
+                    {/* Favorite button */}
+                    <button
+                      className={`absolute right-4 top-4 z-10 rounded-full p-2 ${
+                        isFavorite ? 'bg-red-100 text-red-500' : 'bg-white/70 text-gray-400 hover:text-gray-700'
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFavorite(painting.id);
+                      }}
+                      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                    >
+                      <Heart 
+                        className="h-5 w-5" 
+                        fill={isFavorite ? "currentColor" : "none"} 
+                      />
+                    </button>
+                    
+                    {/* Add DeleteButton for admin users */}
+                    {isAuthenticated && (
+                      <div className="absolute right-4 top-16 z-10">
+                        <DeleteButton
+                          paintingId={painting.id}
+                          imageUrl={painting.image}
+                          onSuccess={() => refreshPaintings()}
+                        />
                       </div>
                     )}
                     
@@ -197,27 +321,18 @@ const Gallery = () => {
                       aria-label={`View ${painting.title} details`}
                     >
                       <div className="aspect-square w-full overflow-hidden">
-                        {/* Check if image exists and handle appropriately */}
                         <div className="h-full w-full bg-gray-200 flex items-center justify-center">
                           {painting.image ? (
-                            <img
-                              src={`/images/${painting.image}`}
+                            <ImageHandler
+                              imageSource={painting.image}
                               alt={painting.title}
                               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="lazy"
-                              onError={(e) => {
-                                // Handle image loading errors by displaying a placeholder
-                                const target = e.target as HTMLImageElement;
-                                target.onerror = null;
-                                target.src = '/placeholder-image.jpg'; // Fallback image
-                              }}
                             />
                           ) : (
                             <span className="text-gray-500 text-sm">Image not available</span>
                           )}
                         </div>
                         
-                        {/* Overlay with hover effect */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                         
                         <div className="absolute bottom-0 left-0 right-0 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
@@ -233,62 +348,33 @@ const Gallery = () => {
                               )}
                               {discountedPrice.toLocaleString()} EGP
                             </p>
-                            <div className="mt-3">
-                              <span className="inline-block rounded-full bg-indigo-600 px-4 py-1 text-sm font-medium">
-                                View Details
-                              </span>
-                            </div>
                           </div>
                         </div>
                       </div>
                     </Link>
-
+                    
                     <div className="p-4">
-                      <div className="flex items-start justify-between">
+                      <h3 className="text-lg font-medium text-gray-900">{painting.title}</h3>
+                      <p className="mt-1 text-sm text-gray-500">{painting.type}</p>
+                      <div className="mt-2 flex items-center justify-between">
                         <div>
-                          <h3 className="truncate text-lg font-semibold text-gray-900">
-                            {painting.title}
-                          </h3>
-                          <p className="mt-1 text-sm text-gray-500">
-                            <span className="font-medium">{painting.type}</span>
-                            <span className="mx-2">•</span>
-                            {painting.dimensions}
-                          </p>
-                        </div>
-                        <button
-                          className="rounded-full bg-indigo-100 p-2 text-indigo-600 transition-colors hover:bg-indigo-200"
-                          aria-label="Add to cart"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (typeof addToCart === 'function') {
-                              addToCart({
-                                id: painting.id,
-                                title: painting.title,
-                                price: discountedPrice
-                              });
-                            }
-                          }}
-                        >
-                          <ShoppingCart className="h-5 w-5" />
-                        </button>
-                      </div>
-                      
-                      <div className="mt-3 flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700">
-                          {hasDiscount ? (
-                            <>
-                              <span className="line-through text-gray-400">{painting.price.toLocaleString()} EGP</span>
-                              <span className="ml-2 text-indigo-600">{discountedPrice.toLocaleString()} EGP</span>
-                            </>
-                          ) : (
-                            <span className="text-indigo-600">{painting.price.toLocaleString()} EGP</span>
+                          {hasDiscount && (
+                            <span className="mr-2 text-sm text-gray-500 line-through">
+                              {painting.price.toLocaleString()} EGP
+                            </span>
                           )}
-                        </span>
-                        {hasDiscount && (
-                          <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-800">
-                            Website Exclusive
+                          <span className="text-lg font-semibold text-gray-900">
+                            {discountedPrice.toLocaleString()} EGP
                           </span>
-                        )}
+                        </div>
+                        <Link
+                          to={`/gallery/${painting.id}`}
+                          className="flex items-center rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                          aria-label={`View details for ${painting.title}`}
+                        >
+                          <Phone className="mr-1 h-4 w-4" />
+                          Contact
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -297,23 +383,9 @@ const Gallery = () => {
             </div>
           )}
         </div>
-        
-        {/* Information Banner */}
-        <div className="mt-16 rounded-xl bg-indigo-50 p-6 text-center">
-          <h2 className="text-2xl font-bold text-indigo-800">Looking for a custom piece?</h2>
-          <p className="mt-2 text-gray-700">
-            We also create custom artwork tailored to your preferences and space.
-          </p>
-          <Link 
-            to="/contact" 
-            className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-3 text-white hover:bg-indigo-700"
-          >
-            Request a Commission
-          </Link>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Gallery;
+export default Gallery; 
