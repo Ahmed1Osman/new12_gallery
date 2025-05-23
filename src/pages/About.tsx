@@ -1,12 +1,9 @@
-import React from 'react';
 // Update your lucide-react imports at the top of About.tsx
 import { 
   Award, 
   Users, 
   BookOpen, 
   Brush, 
-  Calendar, 
-  Mail,
   Globe  // Add this import
 } from 'lucide-react';
 import { motion } from 'framer-motion';
