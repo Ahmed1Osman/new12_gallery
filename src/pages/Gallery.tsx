@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Filter, ChevronDown, Heart, Search, XCircle, Phone } from 'lucide-react';
+import { Filter, ChevronDown, Heart, Search, XCircle, Phone, Maximize2, Eye } from 'lucide-react';
 import { usePaintings } from '../context/PaintingContext';
 import ImageHandler from '../components/ImageHandler';
 import DeleteButton from '../components/DeleteButton'; // Import the DeleteButton component
@@ -319,7 +319,7 @@ const Gallery = () => {
                       className="block"
                       aria-label={`View ${painting.title} details`}
                     >
-                      <div className="aspect-square w-full overflow-hidden">
+                      <div className="aspect-square w-full overflow-hidden relative">
                         <div className="h-full w-full bg-gray-200 flex items-center justify-center">
                           {painting.image ? (
                             <ImageHandler
@@ -334,7 +334,16 @@ const Gallery = () => {
                           )}
                         </div>
                         
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        {/* REMOVED: Dimensions overlay that was on top of the image */}
+                        
+                        {/* View details overlay - appears on hover */}
+                        <div className="absolute inset-0 bg-black/70 opacity-0 transition-all duration-300 group-hover:opacity-100 flex items-center justify-center">
+                          <div className="text-center text-white">
+                            <Maximize2 className="h-8 w-8 mx-auto mb-2" />
+                            <p className="text-sm font-medium mb-1">Click for full size</p>
+                            <p className="text-xs opacity-90">& more details</p>
+                          </div>
+                        </div>
                         
                         <div className="absolute bottom-0 left-0 right-0 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                           <div className="p-4 text-center text-white">
@@ -357,6 +366,12 @@ const Gallery = () => {
                     <div className="p-4">
                       <h3 className="text-lg font-medium text-gray-900">{painting.title}</h3>
                       <p className="mt-1 text-sm text-gray-500">{painting.type}</p>
+                      
+                      {/* Dimensions display in card info - KEPT THIS */}
+                      <p className="mt-1 text-sm text-gray-600 font-medium">
+                        Size: {painting.dimensions}
+                      </p>
+                      
                       <div className="mt-2 flex items-center justify-between">
                         <div>
                           {hasDiscount && (
@@ -373,8 +388,8 @@ const Gallery = () => {
                           className="flex items-center rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
                           aria-label={`View details for ${painting.title}`}
                         >
-                          <Phone className="mr-1 h-4 w-4" />
-                          Contact
+                          <Eye className="mr-1 h-4 w-4" />
+                          View Details
                         </Link>
                       </div>
                     </div>

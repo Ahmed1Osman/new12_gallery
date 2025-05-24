@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { motion } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop'; // Add this import
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { PaymentProvider } from './context/PaymentContext';
@@ -39,6 +40,9 @@ const App: React.FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
       <Elements stripe={stripePromise}>
         <Router>
+          {/* Add ScrollToTop component here - inside Router but outside everything else */}
+          <ScrollToTop />
+          
           <AuthProvider>
             <PaymentProvider>
               <PaintingProvider>
