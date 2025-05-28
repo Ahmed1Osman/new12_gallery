@@ -64,11 +64,14 @@ const Gallery = () => {
       result = result.filter(p => p.type.toLowerCase() === filters.type.toLowerCase());
     }
     
-    // Apply price range filter
+    // Apply price range filter using rounded prices
     if (filters.priceRange) {
       const range = priceRanges.find(r => r.label === filters.priceRange);
       if (range) {
-        result = result.filter(p => p.price >= range.min && p.price <= range.max);
+        result = result.filter(p => {
+          const roundedPrice = Math.ceil(p.price / 1000) * 1000;
+          return roundedPrice >= range.min && roundedPrice <= range.max;
+        });
       }
     }
     
@@ -77,11 +80,19 @@ const Gallery = () => {
       result = result.filter(p => favorites.includes(p.id));
     }
     
-    // Apply sorting
+    // Apply sorting using rounded prices
     if (filters.sortBy === 'priceLow') {
-      result.sort((a, b) => a.price - b.price);
+      result.sort((a, b) => {
+        const roundedA = Math.ceil(a.price / 1000) * 1000;
+        const roundedB = Math.ceil(b.price / 1000) * 1000;
+        return roundedA - roundedB;
+      });
     } else if (filters.sortBy === 'priceHigh') {
-      result.sort((a, b) => b.price - a.price);
+      result.sort((a, b) => {
+        const roundedA = Math.ceil(a.price / 1000) * 1000;
+        const roundedB = Math.ceil(b.price / 1000) * 1000;
+        return roundedB - roundedA;
+      });
     } else if (filters.sortBy === 'newest') {
       result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
@@ -114,9 +125,14 @@ const Gallery = () => {
     }
   };
 
-  // Calculate discounted price (5% discount)
+  // Calculate discounted price (5% discount) with rounded prices
   const calculateDiscountedPrice = (price: number) => {
-    return price * 0.95;
+    // First round the original price to nearest 1000
+    const roundedPrice = Math.ceil(price / 1000) * 1000;
+    // Then apply 5% discount
+    const discountedPrice = roundedPrice * 0.95;
+    // Round up the discounted price to the nearest 1000
+    return Math.ceil(discountedPrice / 1000) * 1000;
   };
 
   return (
@@ -353,7 +369,7 @@ const Gallery = () => {
                             <p className="mt-1 text-lg font-medium text-amber-200">
                               {hasDiscount && (
                                 <span className="mr-2 line-through opacity-70">
-                                  {painting.price.toLocaleString()} EGP
+                                {Math.ceil(painting.price / 1000) * 1000} EGP
                                 </span>
                               )}
                               {discountedPrice.toLocaleString()} EGP
@@ -376,7 +392,7 @@ const Gallery = () => {
                         <div>
                           {hasDiscount && (
                             <span className="mr-2 text-sm text-gray-500 line-through">
-                              {painting.price.toLocaleString()} EGP
+                            {(Math.ceil(painting.price / 1000) * 1000).toLocaleString()} EGP
                             </span>
                           )}
                           <span className="text-lg font-semibold text-gray-900">

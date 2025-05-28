@@ -73,9 +73,9 @@ const PaintingDetail = () => {
             <div className="border-b border-gray-200 pb-6">
               <h1 className="text-4xl font-bold text-gray-900">{painting.title}</h1>
               <p className="mt-4 text-3xl font-semibold text-indigo-600">
-                {(painting.price * 0.95).toLocaleString()} EGP
+                {(Math.ceil((Math.ceil(painting.price / 1000) * 1000 * 0.95) / 1000) * 1000).toLocaleString()} EGP
                 <span className="ml-2 text-base text-gray-500 line-through">
-                  {painting.price.toLocaleString()} EGP
+                  {(Math.ceil(painting.price / 1000) * 1000).toLocaleString()} EGP
                 </span>
               </p>
             </div>
