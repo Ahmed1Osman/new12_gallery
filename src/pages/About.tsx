@@ -1,10 +1,12 @@
-// Update your lucide-react imports at the top of About.tsx
 import { 
   Award, 
   Users, 
   BookOpen, 
   Brush, 
-  Globe  // Add this import
+  Globe,
+  Star,
+  MessageSquare,
+  ArrowRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -27,7 +29,7 @@ const About = () => {
         <div className="absolute inset-0">
           <img
             src="/images/love_in_the_sea.jpeg"
-            alt="Elnagar Art Studio"
+            alt="El-Nagar Atelier"
             className="h-full w-full object-cover object-center"
             loading="eager"
           />
@@ -41,7 +43,7 @@ const About = () => {
         >
           <div className="text-center">
             <h1 className="text-4xl font-bold text-white md:text-6xl">
-              About Elnagar Art
+              About El-Nagar Atelier
             </h1>
             <p className="mt-4 text-xl text-gray-200 md:text-2xl">
               Where Vision Meets Expression
@@ -192,30 +194,103 @@ const About = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-indigo-600 p-12 text-white shadow-xl">
-            <h2 className="text-3xl font-bold md:text-4xl">
-              Experience the Art Journey
-            </h2>
-            <p className="mt-4 text-lg md:text-xl">
-              Visit our gallery or explore our online collection
+{/* Testimonials */}
+      <section className="bg-gray-50 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold md:text-4xl">Collector's Voice</h2>
+            <p className="mt-4 text-lg text-gray-600">What art enthusiasts say about the work</p>
+          </motion.div>
+          
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                quote: "The depth of emotion in each piece is truly captivating. A centerpiece of my collection.",
+                author: "Sarah K., Art Collector",
+                rating: 5
+              },
+              {
+                quote: "Ghada's unique perspective on cultural themes is both refreshing and thought-provoking.",
+                author: "Michael T., Gallery Owner",
+                rating: 5
+              },
+              {
+                quote: "Invested in a piece last year that has already doubled in value. The artistic growth is remarkable.",
+                author: "Ahmed R., Art Investor",
+                rating: 5
+              }
+            ].map((testimonial, index) => (
+              <motion.div 
+                key={index}
+                initial="hidden"
+                whileInView="visible"
+                variants={slideUp}
+                className="bg-white p-8 rounded-2xl shadow-lg"
+              >
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <MessageSquare className="h-8 w-8 text-gray-300 mb-4" />
+                <p className="text-gray-600 italic mb-6">"{testimonial.quote}"</p>
+                <p className="font-medium">{testimonial.author}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">Join the Art Journey</h2>
+            <p className="mt-4 text-lg md:text-xl text-indigo-100">
+              Subscribe for exclusive previews, exhibition invites, and artist insights
             </p>
-            <div className="mt-8 flex justify-center space-x-4">
-              <Link
-                to="/gallery"
-                className="rounded-xl bg-white px-8 py-3 font-medium text-indigo-600 transition-all hover:bg-opacity-90"
-              >
-                View Collection
-              </Link>
-              <Link
-                to="/contact"
-                className="rounded-xl border-2 border-white px-8 py-3 font-medium transition-all hover:bg-white hover:text-indigo-600"
-              >
-                Schedule Visit
-              </Link>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                className="flex-1 px-6 py-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
+              />
+              <button className="bg-white text-indigo-600 font-medium px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                Subscribe <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
+            <p className="mt-4 text-sm text-indigo-200">
+              We respect your privacy. Unsubscribe at any time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+{/* Final CTA */}
+      <section className="py-16 md:py-24 bg-gray-900 text-white">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold md:text-4xl">Experience the Art Journey</h2>
+          <p className="mt-4 text-lg md:text-xl text-gray-300">
+            Explore the collection or schedule a private viewing
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <Link
+              to="/gallery"
+              className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-8 py-3 font-medium text-white transition-all hover:bg-indigo-700"
+            >
+              View Collection
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-3 font-medium transition-all hover:bg-white hover:text-gray-900"
+            >
+              Schedule Visit
+            </Link>
           </div>
         </div>
       </section>

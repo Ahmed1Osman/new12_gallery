@@ -55,6 +55,7 @@ const Header: React.FC = () => {
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/gallery', label: 'Gallery' },
+    { path: '/artists', label: 'Artists' },
     { path: '/about', label: 'About' },
     { path: '/contact', label: 'Contact' },
   ];
@@ -70,7 +71,7 @@ const Header: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              Elnagar Art Studio
+              El-Nagar Atelier
             </motion.span>
           </Link>
 

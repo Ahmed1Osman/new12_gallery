@@ -23,6 +23,9 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Login = lazy(() => import('./pages/Login'));
 const Checkout = lazy(() => import('./components/Checkout'));
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+const Artists = lazy(() => import('./pages/Artists'));
+const ArtistDetail = lazy(() => import('./pages/ArtistDetail'));
+const ArtistPaintingDetail = lazy(() => import('./pages/ArtistPaintingDetail'));
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_test_51YOUR_TEST_KEY_HERE',
@@ -59,6 +62,9 @@ const App: React.FC = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/gallery" element={<Gallery />} />
                         <Route path="/gallery/:id" element={<PaintingDetail />} />
+                        <Route path="/artists" element={<Artists />} />
+                        <Route path="/artists/:artistSlug" element={<ArtistDetail />} />
+                        <Route path="/artists/:artistSlug/paintings/:paintingId" element={<ArtistPaintingDetail />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/checkout" element={<Checkout />} />
